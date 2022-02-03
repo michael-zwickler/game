@@ -21,19 +21,19 @@ public class Game {
 
   public String getWordToGuess() {
     StringBuilder hiddenWord = new StringBuilder();
-    hiddenWord.append(wordToGuess.charAt(0));
-    for (int i = 1; i < wordToGuess.length(); i++) {
+    hiddenWord.append(this.wordToGuess.charAt(0));
+    for (int i = 1; i < this.wordToGuess.length(); i++) {
       hiddenWord.append("_");
     }
     return hiddenWord.toString();
   }
 
   public List<Character> getGuessedChars() {
-    return guessedChars;
+    return this.guessedChars;
   }
 
   public Boolean guessLetter(char guessedChar) {
-    Boolean isCorrectGuess = wordToGuess.contains("" + guessedChar);
+    Boolean isCorrectGuess = this.wordToGuess.contains("" + guessedChar);
     if (isCorrectGuess) 
       this.guessedChars.add(guessedChar);
     else 
@@ -43,7 +43,7 @@ public class Game {
   }
 
   public Integer getRemainingAttempts() {
-    return remainingAttempts;
+    return this.remainingAttempts;
   }
 
 }

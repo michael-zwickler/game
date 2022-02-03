@@ -4,7 +4,6 @@
 package game;
 
 import static org.junit.Assert.assertNotNull;
-import static org.mockito.Mockito.*;
 
 import org.junit.Test;
 
@@ -12,9 +11,6 @@ public class AppTest {
     @Test public void appHasAGreeting() {
         App classUnderTest = new App();
 
-        App mockTest = mock(App.class);
-        when(mockTest.getGreeting()).thenReturn("Hello");
-
-        assertNotNull("app should have a greeting", mockTest.getGreeting());
+        assertNotNull("app should have a greeting", classUnderTest.getGreeting());
     }
 }
