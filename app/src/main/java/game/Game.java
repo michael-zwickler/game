@@ -35,7 +35,7 @@ public class Game {
   public Boolean guessLetter(char guessedChar) {
     Boolean isCorrectGuess = wordToGuess.contains("" + guessedChar);
     if (isCorrectGuess) 
-      guessedChars.add(guessedChar);
+      this.guessedChars.add(guessedChar);
     else 
       this.remainingAttempts--;
 

@@ -14,7 +14,7 @@ public class GameTest {
 
   @Test public void testGetRandomWordFromDictionaryIsCalledOnce() {
     WordChoser wordChoser = mock(WordChoser.class);
-    Game game = new Game(wordChoser);
+    new Game(wordChoser);
     verify(wordChoser, times(1)).getRandomWordFromDictionary();
   }
 

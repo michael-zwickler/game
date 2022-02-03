@@ -11,5 +11,4 @@ public class WordChoser {
     int randomIndex = rand.nextInt(DICTIONARY.length);
     return DICTIONARY[randomIndex]; 
   }
-  
 }
