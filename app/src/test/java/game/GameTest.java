@@ -15,56 +15,44 @@ public class GameTest {
   @Test public void testGetRandomWordFromDictionaryIsCalledOnce() {
     WordChoser wordChoser = mock(WordChoser.class);
     Game game = new Game(wordChoser);
-    
     verify(wordChoser, times(1)).getRandomWordFromDictionary();
   }
 
-  @Test public void testGetsWordToGuess() {
+  @Test public void testGetsWordToGuessWithRandomWord() {
     WordChoser wordChoser = mock(WordChoser.class);
     when(wordChoser.getRandomWordFromDictionary()).thenReturn("MAKERS");
-    
     Game game = new Game(wordChoser);
-    assertEquals("Returns the word to guess, with hidden characters", game.getWordToGuess(), "M_____");
+    assertEquals("Returns the word to guess, with hidden characters", "M_____", game.getWordToGuess());
+  }
+
+  @Test public void testGetsWordToGuess() {
+    Game game = new Game("MAKERS");
+    assertEquals("Returns the word to guess, with hidden characters", "M_____", game.getWordToGuess());
   }
 
   @Test public void testGetRemainingAttempts() {
-    WordChoser wordChoser = mock(WordChoser.class);
-    
-    Game game = new Game(wordChoser);
+    Game game = new Game("MAKERS");
     assertEquals("initializes with 10 remaining attempts", Integer.valueOf(10), game.getRemainingAttempts());
   }
 
   @Test public void testGuessLetterReturnsTrueWhenCorrectGuess() {
-    WordChoser wordChoser = mock(WordChoser.class);
-    when(wordChoser.getRandomWordFromDictionary()).thenReturn("MAKERS");
-    
-    Game game = new Game(wordChoser);
+    Game game = new Game("MAKERS");
     assertTrue(game.guessLetter('K'));    
   }
 
   @Test public void testGuessLetterStoresTheLetterWhenCorrectGuess() {
-    WordChoser wordChoser = mock(WordChoser.class);
-    when(wordChoser.getRandomWordFromDictionary()).thenReturn("MAKERS");
-
-    Game game = new Game(wordChoser);
+    Game game = new Game("MAKERS");
     game.guessLetter('K');
-
     assertTrue(game.getGuessedChars().contains('K'));
   }
 
   @Test public void testGuessLetterReturnsFalseWhenIncorrectGuess() {
-    WordChoser wordChoser = mock(WordChoser.class);
-    when(wordChoser.getRandomWordFromDictionary()).thenReturn("MAKERS");
-
-    Game game = new Game(wordChoser);
+    Game game = new Game("MAKERS");
     assertFalse(game.guessLetter('T'));
   }
 
   @Test public void testGuessLetterReducesAmountToGuessWhenIncorrectGuess() {
-    WordChoser wordChoser = mock(WordChoser.class);
-    when(wordChoser.getRandomWordFromDictionary()).thenReturn("MAKERS");
-
-    Game game = new Game(wordChoser);
+    Game game = new Game("MAKERS");
     game.guessLetter('L');
     assertEquals(Integer.valueOf(9), game.getRemainingAttempts());
   }

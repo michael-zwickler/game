@@ -10,7 +10,11 @@ public class Game {
   private List<Character> guessedChars;
 
   public Game(WordChoser wordChoser) {
-    this.wordToGuess = wordChoser.getRandomWordFromDictionary();
+    this(wordChoser.getRandomWordFromDictionary());
+  }
+
+  public Game(String wordToGuess) {
+    this.wordToGuess = wordToGuess;
     this.remainingAttempts = 10;
     this.guessedChars = new ArrayList<>();
   }
@@ -30,7 +34,7 @@ public class Game {
 
   public Boolean guessLetter(char guessedChar) {
     Boolean isCorrectGuess = wordToGuess.contains("" + guessedChar);
-    if (isCorrectGuess)
+    if (isCorrectGuess) 
       guessedChars.add(guessedChar);
     else 
       this.remainingAttempts--;
