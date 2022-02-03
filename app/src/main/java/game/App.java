@@ -3,12 +3,40 @@
  */
 package game;
 
+import java.util.Scanner;
+
 public class App {
     public String getGreeting() {
-        return "Hello World!";
+        return "Welcome to Hangman. Today the word to guess is:";
     }
 
     public static void main(String[] args) {
         System.out.println(new App().getGreeting());
+
+        WordChoser wordChoser = new WordChoser();
+        Game game = new Game(wordChoser);
+
+        Scanner scanner = new Scanner(System.in);
+
+        while(true) {
+            if (game.getRemainingAttempts() == 0) {
+                System.out.println("You lost!");
+                break;
+            }
+            if (!game.getWordToGuess().contains("_")) {
+                System.out.println("You won!");
+                break;
+            }
+
+            System.out.println(game.getWordToGuess());
+            System.out.printf("Enter one letter to guess. (%d attempts left) \n", game.getRemainingAttempts());
+            char guess = scanner.next().charAt(0);
+            if (game.guessLetter(guess)) {
+                System.out.println("Correct.");
+            } else {
+                System.out.println("Wrong.");
+            }
+        }
+        scanner.close();
     }
 }
