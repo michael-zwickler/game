@@ -30,6 +30,12 @@ public class GameTest {
     assertEquals("Returns the word to guess, with hidden characters", "M_____", game.getWordToGuess());
   }
 
+  @Test public void testGetsWordToGuessWithACorrectGuess() {
+    Game game = new Game("DEVELOPER");
+    game.guessLetter('V');
+    assertEquals("D_V______", game.getWordToGuess());
+  }
+
   @Test public void testGetRemainingAttempts() {
     Game game = new Game("MAKERS");
     assertEquals("initializes with 10 remaining attempts", Integer.valueOf(10), game.getRemainingAttempts());

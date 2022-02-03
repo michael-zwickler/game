@@ -22,9 +22,16 @@ public class Game {
   public String getWordToGuess() {
     StringBuilder hiddenWord = new StringBuilder();
     hiddenWord.append(this.wordToGuess.charAt(0));
+    
     for (int i = 1; i < this.wordToGuess.length(); i++) {
-      hiddenWord.append("_");
+      char currentChar = this.wordToGuess.charAt(i);
+      if (this.guessedChars.contains(currentChar)) {
+        hiddenWord.append(currentChar);   
+      } else {
+        hiddenWord.append("_");
+      }
     }
+    
     return hiddenWord.toString();
   }
 
