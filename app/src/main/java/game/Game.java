@@ -1,26 +1,18 @@
 package game;
 
-import java.util.Random;
+import java.util.ArrayList;
+import java.util.List;
 
 public class Game {
 
   private String wordToGuess;
   private Integer remainingAttempts;
-  private static String[] DICTIONARY = {"MAKERS", "CANDIES", "DEVELOPER", "LONDON"};
+  private List<Character> guessedChars;
 
-  public Game(String wordToGuess) {
-    this.wordToGuess = wordToGuess;
+  public Game(WordChoser wordChoser) {
+    this.wordToGuess = wordChoser.getRandomWordFromDictionary();
     this.remainingAttempts = 10;
-  }
-
-  public Game() {
-    this(getRandomWordFromDictionary());
-  }
-
-  private static String getRandomWordFromDictionary() {
-    Random randomIndex = new Random();
-    String randomWord = DICTIONARY[randomIndex.nextInt(DICTIONARY.length)];
-    return randomWord;
+    this.guessedChars = new ArrayList<>();
   }
 
   public String getWordToGuess() {
@@ -30,6 +22,20 @@ public class Game {
       hiddenWord.append("_");
     }
     return hiddenWord.toString();
+  }
+
+  public List<Character> getGuessedChars() {
+    return guessedChars;
+  }
+
+  public Boolean guessLetter(char guessedChar) {
+    Boolean isCorrectGuess = wordToGuess.contains("" + guessedChar);
+    if (isCorrectGuess)
+      guessedChars.add(guessedChar);
+    else 
+      this.remainingAttempts--;
+
+    return isCorrectGuess;
   }
 
   public Integer getRemainingAttempts() {
