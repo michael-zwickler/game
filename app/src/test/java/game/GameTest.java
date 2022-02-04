@@ -79,7 +79,7 @@ public class GameTest {
   }
 
   @Test public void testGameStatusWhenAllGuessesCorrect() {
-    Game game = new Game("ABC");
+    Game game = new Game("ABBC");
     game.guessLetter('B');
     game.guessLetter('C');
     assertFalse(game.isGameLost());
