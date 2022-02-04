@@ -8,6 +8,8 @@ public class Game {
   private String wordToGuess;
   private Integer remainingAttempts;
   private List<Character> guessedChars;
+  private Boolean isGameLost;
+  private Boolean isGameWon;
 
   public Game(WordChoser wordChoser) {
     this(wordChoser.getRandomWordFromDictionary());
@@ -17,6 +19,8 @@ public class Game {
     this.wordToGuess = wordToGuess;
     this.remainingAttempts = 10;
     this.guessedChars = new ArrayList<>();
+    this.isGameLost = false;
+    this.isGameWon = false;
   }
 
   public String getWordToGuess() {
@@ -46,11 +50,37 @@ public class Game {
     else 
       this.remainingAttempts--;
 
+    this.evaluateGameStatus();
     return isCorrectGuess;
   }
 
   public Integer getRemainingAttempts() {
     return this.remainingAttempts;
+  }
+
+  public boolean isGameLost() {
+    return this.isGameLost;
+  }
+
+  public boolean isGameWon() {
+    return this.isGameWon;
+  }
+
+  private void evaluateGameStatus() {
+    if (this.isGameWon || this.isGameLost) return;
+
+    Boolean isAttemptsLeft = this.remainingAttempts > 0;
+    Boolean isWordGuessed = !this.getWordToGuess().contains("_");
+
+    if (isAttemptsLeft && isWordGuessed) {
+      // this.isGameLost = false;
+      this.isGameWon = true;
+    } 
+    if (!isAttemptsLeft && !isWordGuessed) {
+      this.isGameLost = true;
+      // this.isGameWon = false;
+    }
+        
   }
 
 }

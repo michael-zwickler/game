@@ -19,11 +19,11 @@ public class App {
         Scanner scanner = new Scanner(System.in);
 
         while(true) {
-            if (game.getRemainingAttempts() == 0) {
+            if (game.isGameLost()) {
                 System.out.println("You lost!");
                 break;
             }
-            if (!game.getWordToGuess().contains("_")) {
+            if (game.isGameWon()) {
                 System.out.println("You won!");
                 break;
             }

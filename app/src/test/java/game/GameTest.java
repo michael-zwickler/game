@@ -26,7 +26,7 @@ public class GameTest {
   }
 
   @Test public void testGetsWordToGuess() {
-    Game game = new Game("MAKERS");
+    Game game = new Game("MAKERS"); // ==> OBJ123456
     assertEquals("Returns the word to guess, with hidden characters", "M_____", game.getWordToGuess());
   }
 
@@ -63,4 +63,50 @@ public class GameTest {
     assertEquals(Integer.valueOf(9), game.getRemainingAttempts());
   }
 
+  @Test public void testGameStatusAfterTooManyWrongGuesses() {
+    Game game = new Game("MAKERS");
+    for (int i = 0; i < 10; i++) {
+      game.guessLetter('T');
+    }
+    assertTrue(game.isGameLost());
+    assertFalse(game.isGameWon());
+  }
+
+  @Test public void testGameStatusWhenInitialized() {
+    Game game = new Game("MAKERS");
+    assertFalse(game.isGameLost());
+    assertFalse(game.isGameWon());
+  }
+
+  @Test public void testGameStatusWhenAllGuessesCorrect() {
+    Game game = new Game("ABC");
+    game.guessLetter('B');
+    game.guessLetter('C');
+    assertFalse(game.isGameLost());
+    assertTrue(game.isGameWon());
+  }
+
+  @Test public void testGameStatusWhenOverunningAttemps() {
+    Game game = new Game("ABC");
+    for (int i = 0; i < 10; i++) {
+      game.guessLetter('T');
+    }
+    game.guessLetter('B');
+    game.guessLetter('C');
+    assertTrue(game.isGameLost());
+    assertFalse(game.isGameWon());
+  }
+
+  @Test public void testGameStatusWhenAnsweringCorrectlyThenOverrunning() {
+    Game game = new Game("ABC");
+    game.guessLetter('B');
+    game.guessLetter('C');
+    for (int i = 0; i < 10; i++) {
+      game.guessLetter('T');
+    }
+    assertFalse(game.isGameLost());
+    assertTrue(game.isGameWon());
+  }
+
+  
 }

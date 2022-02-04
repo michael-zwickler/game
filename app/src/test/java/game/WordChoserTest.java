@@ -15,7 +15,7 @@ public class WordChoserTest {
 
     Boolean isInDictionary;
     isInDictionary = Arrays.asList(dictionary).contains(randomWord);
-
+    
     assertTrue("The return string of getRandomWordFromDictionary should be out of the dictionary", isInDictionary);
   }
 }
